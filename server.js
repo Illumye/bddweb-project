@@ -16,7 +16,7 @@ server.on('request', (req, res) => {
             res.end('erreur ressource');
         }
     } else if (req.url === '/all-images') {
-        const images = fs.readdirSync('images');
+        const images = fs.readdirSync('/images');
 
         let html = '<!DOCTYPE html>'
         html += '<html><head><title>Mur d\'images</title><link rel="stylesheet" href="/style"></head><body>';
@@ -32,13 +32,13 @@ server.on('request', (req, res) => {
         html += '</div></body></html>';
         res.end(html);
     } else if (req.url === '/style') {
-        res.end(fs.readFileSync('style.css', 'utf-8'));
+        res.end(fs.readFileSync('/style.css', 'utf-8'));
     } else if (req.url === '/logo') {
-        res.end(fs.readFileSync('images/logo.png'));
+        res.end(fs.readFileSync('/images/logo.png'));
     } else if (req.url.startsWith('/page-image')) {
         // Gère les pages d'images
         const id = parseInt(req.url.split('/')[2], 10);
-        const images = fs.readdirSync('images');
+        const images = fs.readdirSync('/images');
         const length = images.filter((image) => !image.endsWith('_small.jpg') && image != "logo.png").length;
         let html = '<!DOCTYPE html>'
         html += `<html><head><title>Image ${id}</title><link rel="stylesheet" href="/style"></head><body>`;
@@ -95,7 +95,7 @@ server.on('request', (req, res) => {
     }
     
     else {
-        res.end(fs.readFileSync('index.html', 'utf-8'));
+        res.end(fs.readFileSync('/index.html', 'utf-8'));
     }
 });
 
