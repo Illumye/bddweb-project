@@ -1,0 +1,39 @@
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+    display: inline-block;
+    width: 45%;
+}
+
+.right {
+    text-align: right;
+    display: inline-block;
+    width: 45%;
+}
+
+#mur img {
+    width: 100%;
+}
+
+#mur {
+    column-count: 1;
+}
+
+#mur a {
+    display: block;
+}
+
+@media screen and (min-width: 300px) {
+    #mur {
+        column-count: 3;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    #mur {
+        column-count: 5;
+    }
+}
