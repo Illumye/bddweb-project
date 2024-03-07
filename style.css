@@ -14,6 +14,19 @@
     width: 45%;
 }
 
+.footer {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 0;
+}
+
+.footer a {
+    text-decoration: none;
+    color: blue;
+}
+
 #mur img {
     width: 100%;
 }

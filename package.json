@@ -1,0 +1,20 @@
+{
+  "name": "bddweb-project",
+  "version": "1.0.0",
+  "description": "My web server for the \"Bases de données et Développement Web\" course project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Illumye/bddweb-project.git"
+  },
+  "author": "Angy Seguy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Illumye/bddweb-project/issues"
+  },
+  "homepage": "https://github.com/Illumye/bddweb-project#readme"
+}

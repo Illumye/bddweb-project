@@ -35,7 +35,7 @@ server.on('request', (req, res) => {
             }
             
         }
-        html += '</div></body></html>';
+        html += '</div><footer class="footer">Retrouvez le dépôt git <a href="/github">ici</a></footer></body></html>';
         res.end(html);
     } else if (req.url === '/style') {
         res.end(fs.readFileSync('style.css', 'utf-8'));
@@ -79,7 +79,7 @@ server.on('request', (req, res) => {
         } else if (id == length) {
             html += `<div><span class="left"><a href="/page-image/${id-1}"><img src="/images/image${id-1}_small.jpg"></a></span><span class="right"></span></div>`;
         }
-        html += '</body></html>';
+        html += '<footer class="footer">Retrouvez le dépôt git <a href="/github">ici</a></footer></body></html>';
         res.end(html);
     } else if (req.method === 'POST' && req.url === '/image-description') {
         let donnees;
@@ -119,6 +119,9 @@ server.on('request', (req, res) => {
             res.writeHead(302, { Location: `/page-image/${imageId}` });
             res.end();
         });
+    } else if (req.url === "/github") {
+        res.writeHead(302, { Location: 'https://github.com/Illumye/bddweb-project' });
+        res.end();
     }
     
     else {
