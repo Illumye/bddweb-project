@@ -19,7 +19,13 @@ server.on('request', (req, res) => {
         const images = fs.readdirSync('images');
 
         let html = '<!DOCTYPE html>'
-        html += '<html><head><title>Mur d\'images</title><link rel="stylesheet" href="/style"></head><body>';
+        html += `<html>
+                 <head>
+                     <meta charset="UTF-8">
+                     <title>Mur d\'images</title>
+                     <link rel="stylesheet" href="/style">
+                 </head>
+                 <body>`;
         html += '<a href="/">Index</a><div class="center"><h1>Mur d\'images</h1></div>'
         html += '<div id="mur">'
         for (let i = 0; i < images.length; i++) {
@@ -41,7 +47,13 @@ server.on('request', (req, res) => {
         const images = fs.readdirSync('images');
         const length = images.filter((image) => !image.endsWith('_small.jpg') && image != "logo.png").length;
         let html = '<!DOCTYPE html>'
-        html += `<html><head><title>Image ${id}</title><link rel="stylesheet" href="/style"></head><body>`;
+        html += `<html>
+                 <head>
+                     <meta charset="UTF-8">
+                     <title>Image ${id}</title>
+                     <link rel="stylesheet" href="/style">
+                 </head>
+                 <body>`;
         html += `<a href=/all-images>Mur</a><div class="center"><img src="/images/image${id}.jpg" width="350"><p>Magnifique Image</p></div>`
 
         // Div pour les commentaires
@@ -59,7 +71,7 @@ server.on('request', (req, res) => {
                     <label for="commentaire">Commentaire : </label>
                     <input type="text" name="commentaire" id="commentaire">
                     <input type="submit" value="Envoyer">
-                 </form></div>`
+                 </form></div>`;
         if (id > 1 && id < length){
             html += `<div><span class="left"><a href="/page-image/${id-1}"><img src="/images/image${id-1}_small.jpg"></a></span><span class="right"><a href=/page-image/${id+1}><img src="/images/image${id+1}_small.jpg"></a></span></div>`;
         } else if (id == 1) {
@@ -80,8 +92,23 @@ server.on('request', (req, res) => {
             let commentaire = paramValue[1].split('=')[1];
 
             commentaire = commentaire.replace('+', ' ');   // Remplace '+' par ' '
-            commentaire = decodeURIComponent(commentaire); // Remplace les caractères spéciaux
-
+            try {
+                commentaire = decodeURIComponent(commentaire); // Remplace les caractères spéciaux
+            } catch(err) {
+                console.error(err);
+                let html = `<!DOCTYPE html>
+                            <html>
+                                <head>
+                                    <meta charset="UTF-8>
+                                    <title>ERREUR SERVEUR</title>
+                                </head>
+                                <body>
+                                    <p style="color: red;">ERREUR ${err}</p>
+                                    <a href="/page-image/${imageId}">Revenir à la page ${imageId}</a>
+                                </body>
+                            </html>`;
+                res.end(html);
+            }
             if (!commentaires[imageId]) {
                 commentaires[imageId] = [];
             }
