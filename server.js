@@ -124,8 +124,30 @@ server.on('request', (req, res) => {
         res.end();
     }
     
-    else {
+    else if (req.url === "/") {
         res.end(fs.readFileSync('index.html', 'utf-8'));
+    } else {
+        let html = `
+        <!DOCTYPE html>
+        <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>404 Not Found</title>
+            <link rel="stylesheet" href="/style">
+        </head>
+        <body>
+        <div class="center">
+            <h1>404</h1>
+            <p>La page ou la ressource demandée n'existe pas</p>
+            <a href="/">Revenir à l'index</a>
+            <footer class="footer">Retrouvez le dépôt git <a href="/github">ici</a></footer>
+        </div>
+        </body>
+        </html>
+        `
+        res.writeHead(404, { 'Content-Type': 'text/html' });
+        res.end(html);
     }
 });
 
