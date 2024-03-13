@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const host = 'localhost';
-const port = 8000;
+const port = 8080;
 const server = http.createServer();
 
 const commentaires = [];
@@ -81,7 +81,9 @@ server.on('request', (req, res) => {
         }
         html += '<footer class="footer">Retrouvez le dépôt git <a href="/github">ici</a></footer></body></html>';
         res.end(html);
-    } else if (req.method === 'POST' && req.url === '/image-description') {
+    }
+    // Méthodes pour les commentaires -> formulaire
+    else if (req.method === 'POST' && req.url === '/image-description') {
         let donnees;
         req.on('data', (dataChunk) => {
             donnees += dataChunk.toString();
@@ -119,14 +121,18 @@ server.on('request', (req, res) => {
             res.writeHead(302, { Location: `/page-image/${imageId}` });
             res.end();
         });
-    } else if (req.url === "/github") {
+    } 
+    // Lien vers mon dépôt git (non-obligatoire)
+    else if (req.url === "/github") {
         res.writeHead(302, { Location: 'https://github.com/Illumye/bddweb-project' });
         res.end();
     }
-    
+    // Page d'accueil / racine
     else if (req.url === "/") {
         res.end(fs.readFileSync('index.html', 'utf-8'));
-    } else {
+    }
+    // Page 404
+    else {
         let html = `
         <!DOCTYPE html>
         <html lang="fr">
