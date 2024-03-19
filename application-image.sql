@@ -1,9 +1,9 @@
-CREATE DATABASE application_image;
+-- CREATE DATABASE application_image;
 
 CREATE TABLE auteurs (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
-    prenom VARCHAR(100),
+    prenom VARCHAR(100)
 );
 
 CREATE TABLE orientation (
@@ -18,7 +18,7 @@ CREATE TABLE images (
     orientation INTEGER REFERENCES orientation(id),
     fichier VARCHAR(100) NOT NULL,
     likes INTEGER,
-    id_auteur INTEGER REFERENCES auteurs(id),
+    id_auteur INTEGER REFERENCES auteurs(id)
 );
 
 CREATE TABLE commentaires (
