@@ -17,6 +17,7 @@ server.on('request', (req, res) => {
         }
     } else if (req.url === '/all-images') {
         const images = fs.readdirSync('images');
+        const length = images.filter((image) => !image.endsWith('_small.jpg') && image != "logo.png").length;
 
         let html = '<!DOCTYPE html>'
         html += `<html>
@@ -28,12 +29,8 @@ server.on('request', (req, res) => {
                  <body>`;
         html += '<a href="/">Index</a><div class="center"><h1>Mur d\'images</h1></div>'
         html += '<div id="mur">'
-        for (let i = 0; i < images.length; i++) {
-            const id = i + 1
-            if (!images[i].endsWith('_small.jpg')) {
-                html += `<a href="/page-image/${id}"><img src="/images/${images[i]}" alt="${images[i]}" width="300"></a>`;
-            }
-            
+        for (let i = 1; i <= length; i++) {
+            html += `<a href="/page-image/${i}"><img src="/images/image${i}.jpg" alt="image${i}" width="300"></a>`;
         }
         html += '</div><footer class="footer">Retrouvez le dépôt git <a href="/github">ici</a></footer></body></html>';
         res.end(html);
